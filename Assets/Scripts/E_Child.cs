@@ -38,19 +38,20 @@ public class E_Child : MonoBehaviour
         }
 
     }
-    // 만일 플레이어와 부딪히면 넘어진다
-    
 
-    // 넘어 지면 잠깐 멈췄다가 일어나서 다시 뛰어다닌다.
-    private void OnTriggerEnter(Collider other)
+    // 다른 오브젝트와 맞닥뜨렸을때
+    // 플레이어라면 부딪혀서 넘어진다. 잠시 후에 다시 일어나서 달려간다
+    // 나무상자라면 방향을 바꿔서 피해간다
+    private void OnCollisionEnter(Collision obj)
     {
-        if(other == player) 
+        if (obj.gameObject.name == "Player")
         {
             isStop = false;
         }
-        else 
+        else
         {
             dir = new Vector3(1, 0, 0);
+            transform.position += dir * moveSpeed * Time.deltaTime;
         }
     }
 
