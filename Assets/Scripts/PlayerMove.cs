@@ -36,7 +36,7 @@ public class PlayerMove : MonoBehaviour
         }
         else
         {
-            moveSpeed = 10f;
+            moveSpeed = 20f;
         }
 
         // 이동 공식: p = p0 + vt
