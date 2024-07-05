@@ -5,12 +5,19 @@ using UnityEngine;
 public class E_Child : MonoBehaviour
 {
     public float moveSpeed = 10;
-    private bool isStop = true;
+    public GameObject player;
+
+    bool isStop = true;
+    bool triggerCheck = false;
+
     float currentTime = 0;
     float downTime = 1.5f;
-    public GameObject player;
-    Vector3 dir = new Vector3(0, 0, 1);
+    float rot;
 
+    int randomRot = 35;
+    
+    Vector3 dir = new Vector3(0, 0, 1);
+    
 
     void Start()
     {
@@ -47,13 +54,19 @@ public class E_Child : MonoBehaviour
         if (obj.gameObject.name == "Player")
         {
             isStop = false;
-        }
-        else
-        {
-            dir = new Vector3(1, 0, 0);
-            transform.position += dir * moveSpeed * Time.deltaTime;
-        }
+        }        
     }
 
+    private void OnTriggerEnter(Collider other)
+    {        
+        if(other.gameObject.tag == "Wall") 
+        {
+            triggerCheck = true;
+            transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
+            dir = new Vector3(1, 0, 0);
+            print(triggerCheck);
+        }
+        other = null;        
+    }
 
 }
