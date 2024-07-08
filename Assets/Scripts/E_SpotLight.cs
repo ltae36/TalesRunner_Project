@@ -4,18 +4,34 @@ using UnityEngine;
 
 public class E_SpotLight : MonoBehaviour
 {
-    public GameObject flash;    
-    float lifeSpan = 10.0f;
+    public GameObject[] flash = new GameObject[5];    
+    public float lifeSpan = 4.0f;
     public float startTime;
+    float endTime = 8.0f;
     
     private void Update()
-    {
-        flash.SetActive(false);
-        // 타이밍에 맞춰 스포트라이트가 꺼졌다 켜진다.
-        startTime += Time.deltaTime;        
-        if(startTime > lifeSpan)
+    {        
+        startTime += Time.deltaTime;
+        print(startTime);
+        for (int i = 0; i < 5; i++)
+        {            
+            flash[i].SetActive(false);
+            // 타이밍에 맞춰 스포트라이트가 꺼졌다 켜진다.            
+            if (startTime > lifeSpan)
+            {
+                flash[i].SetActive(true);            
+                
+            }          
+            
+        }      
+        
+        for(int i = 0; i < 5; i++) 
         {
-            flash.SetActive(true);
-        }        
+            if (startTime > endTime)
+            {
+                flash[i].SetActive(false);
+            }
+        }
+        
     }      
 }

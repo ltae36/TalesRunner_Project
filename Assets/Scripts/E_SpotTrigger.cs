@@ -16,7 +16,7 @@ public class E_SpotTrigger : MonoBehaviour
     }
 
     void Update()
-    {
+    {        
        if(move.canMove == false) 
         {
             currentTime += Time.deltaTime;
@@ -31,12 +31,15 @@ public class E_SpotTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        // 스포트라이트에 닿으면 목각인형 상태가 되어 조작할 수 없게 된다.
-        if(other.gameObject.tag == "Player") 
+        if (go.activeInHierarchy)
         {
-            print("스포트라이트에 닿았다!");
-            other.GetComponent<PlayerMove>().canMove = false;
-            move.canMove = false;
+            // 스포트라이트에 닿으면 목각인형 상태가 되어 조작할 수 없게 된다.
+            if (other.gameObject.tag == "Player")
+            {
+                print("스포트라이트에 닿았다!");
+                other.GetComponent<PlayerMove>().canMove = false;
+                move.canMove = false;
+            }
         }
     }
 }
