@@ -58,15 +58,13 @@ public class E_Child : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other)
-    {        
-        if(other.gameObject.tag == "Wall") 
+    {
+        if (other.gameObject.tag == "Wall") 
         {
             triggerCheck = true;
             transform.rotation = Quaternion.Euler(new Vector3(0, 90f, 0));
             dir = new Vector3(1, 0, 0);
             print(triggerCheck);
-        }
-        other = null;        
+        }                
     }
-
 }
