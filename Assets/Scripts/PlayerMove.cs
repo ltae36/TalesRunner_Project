@@ -8,14 +8,12 @@ public class PlayerMove : MonoBehaviour
     // 방향, 속력 = 속도(Vector)     
 
     public float moveSpeed;
-    public bool canMove;
-    Rigidbody rb;
     Vector3 direction;
 
     // 처음 생성되었을 때 한 번만 실행되는 함수
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        
     }
 
     // 매 프레임마다 반복해서 실행하는 함수
@@ -32,29 +30,20 @@ public class PlayerMove : MonoBehaviour
         // 벡터의 길이를 무조건 1로 바꾼다.(정규화)
         direction.Normalize();
 
-        if (canMove == false)
-        {
-            moveSpeed = 0;
-        }
-        else
-        {
-            moveSpeed = 20f;
-        }
 
         // 이동 공식: p = p0 + vt
         transform.position += direction * moveSpeed * Time.deltaTime;
 
         #endregion
 
-    }
 
+    }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Wall") 
+        if (collision.gameObject.tag == "Wall")
         {
             // 충돌 시 이동 중지
             direction = Vector3.zero;
         }
     }
-   
 }
