@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerCrashed : MonoBehaviour
 {
     public bool canMove;
-    PlayerMove move;
+    //PlayerMove move;
 
     void Start()
     {
@@ -16,13 +16,13 @@ public class PlayerCrashed : MonoBehaviour
     void Update()
     {
 
-        if (canMove == false)
-        {
-            move.moveSpeed = 0;
-        }
-        else
-        {
-            move.moveSpeed = 20f;
-        }
+        //if (canMove == false)
+        //{
+        //    move.moveSpeed = 0;
+        //}
+        //else
+        //{
+        //    move.moveSpeed = 20f;
+        //}
     }
 }

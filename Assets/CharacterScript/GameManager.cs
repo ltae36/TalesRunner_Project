@@ -14,12 +14,15 @@ public class GameManager : MonoBehaviour
 
     public Text timerText;
     private float startTime;
-    private bool isRunning;
+
+    public GameObject TrackUI;
 
 
 
 
-    private void Awake()
+
+
+    private void Awake() 
     {
     
         if (gm == null)     // 씬에 단 한 개만 존재하도록 처리
@@ -45,4 +48,19 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    void restart() // 다시하기 버튼 || f12 누르면 다시하기
+    {
+        TrackUI.SetActive(true);
+        Input.GetKeyDown(KeyCode.F12);
+    }
+
+    public void quit() // 그만하기 버튼 || esc 누르면 끝내기
+    {
+        Application.Quit();
+
+        // esc는?
+
+    }
+
 }
