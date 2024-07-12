@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class E_SpotLight : MonoBehaviour
 {
-    public GameObject[] flash = new GameObject[5];    
+    public GameObject[] flash;
     public float lifeSpan = 4.0f;
     public float startTime;
     public float endTime = 8.0f;
@@ -15,8 +15,7 @@ public class E_SpotLight : MonoBehaviour
     {
         
         startTime += Time.deltaTime;
-        print(startTime);
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < flash.Length; i++)
         {            
             flash[i].SetActive(false);
             // 타이밍에 맞춰 스포트라이트가 꺼졌다 켜진다.            
@@ -28,7 +27,8 @@ public class E_SpotLight : MonoBehaviour
             
         }      
         
-        for(int i = 0; i < 5; i++) 
+        // 시간이 흐르면 자동으로 꺼진다.
+        for(int i = 0; i < flash.Length; i++) 
         {
             if (startTime > endTime)
             {
