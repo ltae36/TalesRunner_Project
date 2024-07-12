@@ -61,14 +61,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\E_OakBarrel.cs" />
+    <Compile Include="Assets\CharacterScript\LobbyManager.cs" />
+    <Compile Include="Assets\CharacterScript\NewMomve.cs" />
     <Compile Include="Assets\Scripts\E_Child.cs" />
+    <Compile Include="Assets\CharacterScript\TEST_Scripts.cs" />
+    <Compile Include="Assets\CharacterScript\CameraSwap.cs" />
+    <Compile Include="Assets\CharacterScript\GameManager.cs" />
     <Compile Include="Assets\Scripts\ObstaclesFactory.cs" />
+    <Compile Include="Assets\CharacterScript\Back_Camera.cs" />
+    <Compile Include="Assets\CharacterScript\Local_Move1.cs" />
     <Compile Include="Assets\Scripts\PendulumMotion.cs" />
-    <Compile Include="Assets\Scripts\PlayerMove.cs" />
+    <Compile Include="Assets\CharacterScript\ScreenManager.cs" />
+    <Compile Include="Assets\CharacterScript\Track_Camera.cs" />
     <Compile Include="Assets\Scripts\CurtainOpen.cs" />
     <Compile Include="Assets\Scripts\E_SpotTrigger.cs" />
+    <Compile Include="Assets\CharacterScript\RayCast.cs" />
     <Compile Include="Assets\Scripts\PlayerCrashed.cs" />
     <Compile Include="Assets\Scripts\E_SpotLight.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\AnimeGirls\BaseCharacter\BaseCharacter\Sourcefiles\Shader\DoubleSided.shader" />
+    <None Include="Assets\AnimeGirls\BaseCharacter\BaseCharacter\Sourcefiles\Shader\UnlitColor.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
