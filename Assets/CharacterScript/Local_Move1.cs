@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,13 +44,34 @@ public class Local_Move : MonoBehaviour
         float moveVertical = Input.GetAxis("Vertical");
         Vector3 movement = new Vector3(moveHorizontal, 0, moveVertical).normalized;
 
+        //transform.position += movement * moveSpeed * Time.deltaTime;
+
+        //if(Input.GetKeyDown(KeyCode.UpArrow))
+        //{
+        //    transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
+        //} 
+        //if(Input.GetKeyDown(KeyCode.DownArrow))
+        //{
+        //    transform.position += Vector3.back * moveSpeed * Time.deltaTime;
+        //}
+        //if (Input.GetKeyDown(KeyCode.LeftArrow))
+        //{
+        //    transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+        //}
+        //if (Input.GetKeyDown(KeyCode.RightArrow))
+        //{
+        //    transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+        //}
+
         // 캐릭터의 로컬 방향으로 이동 방향 설정
-        Vector3 localMoveDirection = transform.TransformDirection(movement);
+        Vector3 localDir = transform.TransformDirection(movement);
 
         // 이동 방향으로 회전
         if (movement.magnitude > 0.1f)
         {
-            Quaternion targetRotation = Quaternion.LookRotation(localMoveDirection);
+            Quaternion targetRotation = Quaternion.LookRotation(localDir);
+
+
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
 
@@ -71,15 +93,22 @@ public class Local_Move : MonoBehaviour
 
         // 이동과 달리기에 따른 속도 계산
         float currentSpeed = isRunning ? runSpeed : moveSpeed;
-        Vector3 movementVelocity = localMoveDirection * currentSpeed * Time.deltaTime;
+        Vector3 movementVelocity = localDir * currentSpeed * Time.deltaTime;
 
         // Rigidbody의 위치를 로컬 좌표계 기준으로 이동시킴
-        rb.MovePosition(rb.position + movementVelocity);
+        rb.MovePosition(rb.position + movementVelocity);    // rigid body로 이동구현 고쳐야함
+
+        // 위 movement 벡터로 이동시킴
+        //transform.position += movement * moveSpeed * Time.deltaTime;
+
+
 
         // 이동과 슬라이딩 속도 적용
         float currentSpeed2 = isSliding ? slideSpeed : moveSpeed;
-        Vector3 movementVelocity2 = localMoveDirection * currentSpeed2 * Time.deltaTime;
-        rb.MovePosition(rb.position + movementVelocity2);
+        Vector3 movementVelocity2 = localDir * currentSpeed2 * Time.deltaTime;
+        rb.MovePosition(rb.position + movementVelocity2);    // rigid body로 이동구현 고쳐야함
+        //transform.position += movementVelocity2 * Time.deltaTime;
+
 
         // 애니메이션 업데이트
         UpdateAnimator(movement);
