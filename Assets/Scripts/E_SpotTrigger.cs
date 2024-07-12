@@ -21,7 +21,6 @@ public class E_SpotTrigger : MonoBehaviour
        if(move.canMove == false) 
         {
             currentTime += Time.deltaTime;
-            print(currentTime);
             if(currentTime > stopDuration) 
             {
                 go.GetComponent<PlayerCrashed>().canMove = true;

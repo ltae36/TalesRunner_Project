@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 9114267462589599190}
   - component: {fileID: 5746996575145498777}
   - component: {fileID: 3999662569268916145}
-  - component: {fileID: 2468398789442436255}
   m_Layer: 0
   m_Name: OakBox (1)
   m_TagString: Wall
@@ -27,13 +26,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2376221377186915386}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.6279237, y: -1.575499, z: -1.1532662}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalRotation: {x: -0, y: 0.058891494, z: -0, w: 0.99826443}
+  m_LocalPosition: {x: 2.6327763, y: -1.6, z: -1.1434017}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2455832158024649759}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 6.752, z: 0}
 --- !u!33 &5746996575145498777
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41,7 +40,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2376221377186915386}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -8678823145569952518, guid: 53ea0cbd432e9a941be1b09a6776a81c, type: 3}
 --- !u!23 &3999662569268916145
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -62,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2ef9af3738477bf4da74dd6e78a60434, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &2468398789442436255
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2376221377186915386}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2381051451730730524
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +159,6 @@ GameObject:
   - component: {fileID: 2017176713889429740}
   - component: {fileID: 277761826569516716}
   - component: {fileID: 3809126701069181986}
-  - component: {fileID: 4960457090450581713}
   m_Layer: 0
   m_Name: OakBox (2)
   m_TagString: Wall
@@ -198,8 +175,8 @@ Transform:
   m_GameObject: {fileID: 5385227176424328148}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.2890533, z: -0, w: 0.957313}
-  m_LocalPosition: {x: 0.34692365, y: 0.92450094, z: -0.5722661}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalPosition: {x: 0.34692365, y: 1.03, z: -0.5722661}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2455832158024649759}
@@ -211,7 +188,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5385227176424328148}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -8678823145569952518, guid: 53ea0cbd432e9a941be1b09a6776a81c, type: 3}
 --- !u!23 &3809126701069181986
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -232,7 +209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2ef9af3738477bf4da74dd6e78a60434, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -254,27 +231,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4960457090450581713
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5385227176424328148}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6021539523558054546
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +242,7 @@ GameObject:
   - component: {fileID: 6759970478514996438}
   - component: {fileID: 5563321078164558773}
   - component: {fileID: 2852945818098775563}
-  - component: {fileID: 5327799991286066157}
+  - component: {fileID: 6011486917121109411}
   m_Layer: 0
   m_Name: OakBox
   m_TagString: Wall
@@ -303,8 +259,8 @@ Transform:
   m_GameObject: {fileID: 6021539523558054546}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.575499, z: -0.75526613}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalPosition: {x: 0, y: -1.6, z: -0.75}
+  m_LocalScale: {x: 500, y: 500, z: 500}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2455832158024649759}
@@ -316,7 +272,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6021539523558054546}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: -3329902420748629119, guid: 53ea0cbd432e9a941be1b09a6776a81c, type: 3}
 --- !u!23 &2852945818098775563
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -337,7 +293,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 2ef9af3738477bf4da74dd6e78a60434, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -359,7 +315,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5327799991286066157
+--- !u!65 &6011486917121109411
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -378,5 +334,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.005356405, y: 0.005356405, z: 0.005356405}
+  m_Center: {x: 0, y: -2.3283064e-10, z: 0.0026285993}
