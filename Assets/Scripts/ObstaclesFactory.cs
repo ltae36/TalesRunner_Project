@@ -8,9 +8,12 @@ public class ObstaclesFactory : MonoBehaviour
     public GameObject oakBarrel;
     public GameObject factory;
     public bool playerAccess = false;
+    
+    
     float deathTime = 0;
     float delayTime = 2.0f;
     float currentTime = 0;
+    
 
     void Start()
     {
@@ -28,7 +31,7 @@ public class ObstaclesFactory : MonoBehaviour
             {
                 Instantiate(oakBarrel);
                 currentTime = 0;
-                oakBarrel.transform.position = factory.transform.position;                
+                oakBarrel.transform.position = factory.transform.position;              
             }
             if (deathTime >= 10) 
             {
