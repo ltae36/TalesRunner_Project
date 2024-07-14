@@ -6,16 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class LobbyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+    public AudioSource lobbyBGM;
+
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        LobbyBGM();
     }
 
     public void Gamestart()  // 게임 시작 누를시 1번에 있는 씬으로 전환(trackScene)
@@ -26,6 +28,19 @@ public class LobbyManager : MonoBehaviour
 
     public void Gamequit()  // 어플리케이션 종료
     {
-        Application.Quit();
+        if(Input.GetButtonDown("Escape"))   
+            {
+               Application.Quit();
+            }
     }
+
+    public void LobbyBGM()
+    {
+        if(lobbyBGM != null && !lobbyBGM.isPlaying)  //로비 bgm이 null 이 아니고 플레이 중이 아니라면
+        {
+            lobbyBGM.Play();
+        }
+    }
+
+
 }
