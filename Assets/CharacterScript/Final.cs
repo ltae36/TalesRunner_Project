@@ -117,68 +117,96 @@ public class Final : MonoBehaviour
 
 
 
-        // 점프
-
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 2)   // 만약 스페이를 누르고 점프카운트가 2 이라면
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-            animator.SetTrigger("Jump");
+            if (jumpCount == 2)
+            {
+                // 첫 번째 점프
+                rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
 
-            audioSource.clip = soundJump;
-            audioSource.Play();
+                animator.SetTrigger("Jump");
+                audioSource.clip = soundJump;
+                audioSource.Play();
+                jumpCount--;
+            }
+            else if (jumpCount == 1)
+            {
+                // 두 번째 점프 (이중 점프)
+                rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
 
-         
-                       
+                animator.SetTrigger("DoubleJump");
+                audioSource.clip = soundDoubleJump;
+                audioSource.Play();
+                jumpCount--;
+
+
+
+
+
+
+                // 점프
+
+                //if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 2)   // 만약 스페이를 누르고 점프카운트가 2 이라면
+                //{
+                //    rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+                //    animator.SetTrigger("Jump");
+
+                //    audioSource.clip = soundJump;
+                //    audioSource.Play();
+
+
+
+                //}
+
+                //if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 1)   // 만약 스페이스를 누르고 점프카운트가 1이면 
+                //{
+                //    rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
+                //    animator.SetTrigger("DoubleJump");
+
+                //    audioSource.clip = soundDoubleJump;
+                //    audioSource.Play();
+
+
+
+                //}
+                //jumpCount--;
+
+
+
+
+                #region 레이캐스트/ 레이어를 이용한 점프, 그라운드를 벗어나면 점프가 안되서 사용x
+                // 점프
+
+
+                // isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, Ground);     // 땅에 닿아 있는지 확인 버그로 oncollision 사용하기로 함
+
+                //if (isGrounded)
+                //{
+                //    jumpCount = 0;  // 땅에 있으면 점프 횟수 초기화
+                //}
+                //if (Input.GetButtonDown("Jump") && jumpCount < maxJumpCount)  // 스페이스 누르면 점프  && 점프카운트가 맥스 점프카운트보다 적다면 
+                //{
+                //    rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+                //    animator.SetTrigger("Jump");
+
+                //}      
+
+                //if (Input.GetButtonDown("Jump") && jumpCount == 1)  // 만약 점프 버튼을 누르고 점프카운트가 1이면 한번 더 점프
+                //{
+                //    rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
+                //    animator.SetTrigger("DoubleJump");
+
+
+                //}
+                //jumpCount++;
+                #endregion
+            }
+
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 1)   // 만약 스페이스를 누르고 점프카운트가 1이면 
-        {
-            rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
-            animator.SetTrigger("DoubleJump");
-
-            audioSource.clip = soundDoubleJump;
-            audioSource.Play();
-
-         
-
-        }
-        jumpCount--;
-
-
-
-
-
-
-        #region 레이캐스트/ 레이어를 이용한 점프, 그라운드를 벗어나면 점프가 안되서 사용x
-        // 점프
-
-
-        // isGrounded = Physics.Raycast(transform.position, Vector3.down, groundCheckDistance, Ground);     // 땅에 닿아 있는지 확인 버그로 oncollision 사용하기로 함
-
-        //if (isGrounded)
-        //{
-        //    jumpCount = 0;  // 땅에 있으면 점프 횟수 초기화
-        //}
-        //if (Input.GetButtonDown("Jump") && jumpCount < maxJumpCount)  // 스페이스 누르면 점프  && 점프카운트가 맥스 점프카운트보다 적다면 
-        //{
-        //    rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-        //    animator.SetTrigger("Jump");
-
-        //}      
-
-        //if (Input.GetButtonDown("Jump") && jumpCount == 1)  // 만약 점프 버튼을 누르고 점프카운트가 1이면 한번 더 점프
-        //{
-        //    rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
-        //    animator.SetTrigger("DoubleJump");
-
-
-        //}
-        //jumpCount++;
-        #endregion
     }
 
-
-    private void OnCollisionEnter(Collision collision)
+            private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))       // Ground 태그에 닿으면 
         {
