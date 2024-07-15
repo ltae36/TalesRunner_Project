@@ -1,27 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Track_Camera : MonoBehaviour
 {
-    public Transform target; // 따라갈 타겟 (캐릭터)
-    public Vector3 offset;   // 카메라와 타겟 간의 오프셋
-    public float smoothSpeed = 0.125f; // 부드러운 이동 속도
-    void Update()
-
-    {
-
-    }
+    public Transform target; // 카메라가 따라갈 대상 (캐릭터)
+    public float distance = 10f; // 카메라와 캐릭터 사이의 거리
+    public float height = 3f; // 카메라의 높이
 
     void LateUpdate()
     {
-        // 타겟의 위치에 오프셋을 더한 위치 계산
-        Vector3 desiredPosition = target.position + offset;
-        // 부드럽게 이동
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
-        transform.position = smoothedPosition;
+        if (target == null) return; // 대상이 없으면 함수 종료
 
-        // 카메라가 타겟의 방향을 바라보도록 회전
-        transform.LookAt(target);
+        // 타겟 위치와 방향을 기반으로 카메라의 위치 계산
+        Vector3 targetPosition = target.position + Vector3.up * height - target.forward * distance;
+
+        // 카메라의 위치 설정
+        transform.position = targetPosition;
+
+        // 타겟을 바라보도록 카메라 회전
+        transform.LookAt(target.position);
     }
 }
