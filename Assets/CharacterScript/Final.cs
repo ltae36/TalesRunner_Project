@@ -144,34 +144,6 @@ public class Final : MonoBehaviour
 
 
 
-                // 점프
-
-                //if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 2)   // 만약 스페이를 누르고 점프카운트가 2 이라면
-                //{
-                //    rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
-                //    animator.SetTrigger("Jump");
-
-                //    audioSource.clip = soundJump;
-                //    audioSource.Play();
-
-
-
-                //}
-
-                //if(Input.GetKeyDown(KeyCode.Space) && jumpCount == 1)   // 만약 스페이스를 누르고 점프카운트가 1이면 
-                //{
-                //    rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
-                //    animator.SetTrigger("DoubleJump");
-
-                //    audioSource.clip = soundDoubleJump;
-                //    audioSource.Play();
-
-
-
-                //}
-                //jumpCount--;
-
-
 
 
                 #region 레이캐스트/ 레이어를 이용한 점프, 그라운드를 벗어나면 점프가 안되서 사용x
@@ -217,6 +189,7 @@ public class Final : MonoBehaviour
         if(collision.gameObject.CompareTag("Slide"))        // Slide 태그에 닿으면
         {
             transform.position += moveDirection * slideSpeed * Time.deltaTime;
+
             animator.SetBool("Slide", true);
         }
 
