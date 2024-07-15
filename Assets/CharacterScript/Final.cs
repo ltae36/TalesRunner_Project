@@ -5,8 +5,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+
 public class Final : MonoBehaviour
 {
+
     public float moveSpeed = 5f; // 캐릭터의 이동 속도
     public float rotationSpeed = 100f; // 캐릭터의 회전 속도
     Vector3 moveDirection;
@@ -27,6 +29,8 @@ public class Final : MonoBehaviour
     //public LayerMask Ground;  // 그라운드 레이어
     //public LayerMask Slide; // 슬라이드 레이어
 
+    public float rayLength = 2f;
+
 
     AudioSource audioSource;
 
@@ -34,7 +38,7 @@ public class Final : MonoBehaviour
     public AudioClip soundJump;
     public AudioClip soundDoubleJump;
 
-    
+
 
 
 
@@ -98,6 +102,16 @@ public class Final : MonoBehaviour
             animator.SetFloat("Speed", 0f); // "Speed" 파라미터를 0으로 설정하여 Idle 상태로 전환  
         }
 
+        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, rayLength))
+        {
+
+
+            Vector3 slopenormal = Hit.normal;
+            Vector3 slopemovement = Vector3.ProjectOnPlane(moveDirection, slopenormal);
+
+
+        }
+
 
 
 
@@ -125,6 +139,7 @@ public class Final : MonoBehaviour
                 rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
 
                 animator.SetTrigger("Jump");
+                animator.SetBool("Slide", false);
                 audioSource.clip = soundJump;
                 audioSource.Play();
                 jumpCount--;
@@ -135,6 +150,7 @@ public class Final : MonoBehaviour
                 rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
 
                 animator.SetTrigger("DoubleJump");
+                animator.SetBool("Slide", false);
                 audioSource.clip = soundDoubleJump;
                 audioSource.Play();
                 jumpCount--;
@@ -146,7 +162,9 @@ public class Final : MonoBehaviour
 
 
 
-                #region 레이캐스트/ 레이어를 이용한 점프, 그라운드를 벗어나면 점프가 안되서 사용x
+
+
+                #region 레이캐스트/ 레이어를 이용한 점프, 그라운드를 벗어나면 점프가 안되서 사용x 레이캐스트를 아래가 아니라 앞뒤좌우 로 넓게 뿌려야함
                 // 점프
 
 
@@ -178,7 +196,7 @@ public class Final : MonoBehaviour
 
     }
 
-            private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Ground"))       // Ground 태그에 닿으면 
         {
@@ -186,14 +204,18 @@ public class Final : MonoBehaviour
         }
 
 
-        if(collision.gameObject.CompareTag("Slide"))        // Slide 태그에 닿으면
+        if (collision.gameObject.CompareTag("Slide"))        // Slide 태그에 닿으면
         {
-            transform.position += moveDirection * slideSpeed * Time.deltaTime;
 
+            jumpCount = 2;
+
+            transform.position += moveDirection * slideSpeed * Time.deltaTime;
             animator.SetBool("Slide", true);
         }
 
-        if(collision.gameObject.CompareTag("Trap"))    // trap에 부딪히면
+
+
+        if (collision.gameObject.CompareTag("Trap"))    // trap에 부딪히면
         {
 
             animator.SetBool("TrapFall", true); //  애니메이션을 재생하고
@@ -205,18 +227,11 @@ public class Final : MonoBehaviour
             Vector3 KnockBack = (transform.position - collision.transform.position).normalized;   //  넉백시킬 방향을 선언하고
 
             rb.AddForce(KnockBack * KnockBackPower, ForceMode.Impulse);   //  넉백시킬 힘을 추가한다.
-           
+
         }
     }
 
-  
+
 
 
 }
-
-
-
-
-
-
-
