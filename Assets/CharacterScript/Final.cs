@@ -102,16 +102,21 @@ public class Final : MonoBehaviour
             animator.SetFloat("Speed", 0f); // "Speed" 파라미터를 0으로 설정하여 Idle 상태로 전환  
         }
 
-        if(Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, rayLength))
-        {
+        //// 레이캐스트를 사용해 경사면 이동/슬라이딩 자연스럽게
+        //if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
+        //{
 
+        //    Vector3 slopeNormal = Hit.normal;
+        //    Vector3 slopeMovement = Vector3.ProjectOnPlane(moveDirection, slopeNormal).normalized;
 
-            Vector3 slopenormal = Hit.normal;
-            Vector3 slopemovement = Vector3.ProjectOnPlane(moveDirection, slopenormal);
+        //    transform.position += slopeMovement;  // 경사면움직임으로
 
-
-        }
-
+        //    //Quaternion slopeRotation = Quarternion.FromtoRotation(Vector3.up )
+        //}
+        //else
+        //{
+        //    transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 움직임으로
+        //}
 
 
 

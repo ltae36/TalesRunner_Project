@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class Track_Camera : MonoBehaviour
 {
-    public Transform target; // 카메라가 따라갈 대상 (캐릭터)
-    public float distance = 5f; // 카메라와 캐릭터 사이의 거리
-    public float height = 2f; // 카메라의 높이
-
+    public Transform target; // 따라갈 타겟 (캐릭터)
+    public Vector3 offset;   // 카메라와 타겟 간의 오프셋
+    public float smoothSpeed = 0.125f; // 부드러운 이동 속도
     void Update()
-    {
-        // 캐릭터가 바라보는 방향(normalized)을 기준으로 카메라를 회전시킵니다.
-        Vector3 lookDirection = target.forward;
-        Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
 
-        // 카메라의 회전을 부드럽게 적용
-        transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    {
+
     }
 
+    void LateUpdate()
+    {
+        // 타겟의 위치에 오프셋을 더한 위치 계산
+        Vector3 desiredPosition = target.position + offset;
+        // 부드럽게 이동
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        transform.position = smoothedPosition;
 
-
-
-    //if (target != null)
-    //{
-    //    // 캐릭터의 위치에 대해 뒤로 이동하고 위로 올린 위치 계산
-    //    Vector3 offset = -target.forward * distance + Vector3.up * height;
-    //    // 카메라의 위치를 계산된 위치로 설정
-    //    transform.position = target.position + offset;
-
-    //    // 캐릭터가 바라보는 방향으로 카메라 회전
-    //    transform.rotation = Quaternion.LookRotation(target.forward, Vector3.up);
-    //}
+        // 카메라가 타겟의 방향을 바라보도록 회전
+        transform.LookAt(target);
+    }
 }
