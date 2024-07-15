@@ -121,6 +121,7 @@ public class TEST_Scripts1 : MonoBehaviour
         {
             isGrounded = false;
             isJumping = true;
+
             animator.SetTrigger("IsJumping");
             animator.SetBool("IsSliding", false);
             jumpsRemaining--;
@@ -158,6 +159,8 @@ public class TEST_Scripts1 : MonoBehaviour
                 isJumping = false;
                 isDoubleJumping = false;
                 isSliding = false;
+
+
                 jumpsRemaining = maxJumps;
                 animator.SetBool("IsJumping", false);
                 animator.SetBool("IsDoubleJumping", false);
