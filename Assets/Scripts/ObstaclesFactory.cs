@@ -33,7 +33,7 @@ public class ObstaclesFactory : MonoBehaviour
                 currentTime = 0;
                 oakBarrel.transform.position = factory.transform.position;              
             }
-            if (deathTime >= 10) 
+            if (deathTime >= 4) 
             {
                 Destroy(oakBarrel);
                 factory.SetActive(false);
