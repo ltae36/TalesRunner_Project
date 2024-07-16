@@ -11,8 +11,8 @@ public class ObstaclesFactory : MonoBehaviour
     
     
     float deathTime = 0;
-    float delayTime = 2.0f;
-    float currentTime = 0;
+    float delayTime = 1.85f;
+    float currentTime = 1.85f;
     
 
     void Start()
@@ -41,11 +41,11 @@ public class ObstaclesFactory : MonoBehaviour
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Player")
         {
-            playerAccess = true;            
+            playerAccess = true;
         }
     }
 }
