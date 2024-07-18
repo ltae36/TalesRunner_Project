@@ -22,7 +22,7 @@ public class Final : MonoBehaviour
 
     //public int maxJumpCount = 2;  // 최대 점프 횟수
     private int jumpCount = 2;
-    public float KnockBackPower = 2f;  // 트랩에 부딪히면 밀쳐질 거리/힘
+    
 
 
     //public float groundCheckDistance = 0.1f;  // 땅 감지 거리
@@ -30,6 +30,14 @@ public class Final : MonoBehaviour
     //public LayerMask Slide; // 슬라이드 레이어
 
     public float rayLength = 2f;
+
+
+
+    public float pushForce = 40f; // trap에 부딪히면 밀쳐낼 힘
+
+    //public Vector3 pushDirection = Vector3.back; // 밀쳐낼 방향 / 뒤
+    public Vector3 pushDirection;// 밀쳐낼 방향 / 뒤
+
 
 
     AudioSource audioSource;
@@ -82,7 +90,9 @@ public class Final : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.LeftShift))
             {
-                transform.position += moveDirection * runSpeed * Time.deltaTime;
+                moveSpeed = runSpeed;
+
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
                 animator.SetFloat("Speed", runSpeed); // 달리기 애니메이션 입력
 
                 audioSource.clip = soundRun;
@@ -92,7 +102,9 @@ public class Final : MonoBehaviour
             }
             else
             {
-                transform.position += moveDirection * walkSpeed * Time.deltaTime;
+                moveSpeed = walkSpeed;
+
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;
                 animator.SetFloat("Speed", walkSpeed); // 걷기 애니메이션 입력
             }
         }
@@ -102,21 +114,32 @@ public class Final : MonoBehaviour
             animator.SetFloat("Speed", 0f); // "Speed" 파라미터를 0으로 설정하여 Idle 상태로 전환  
         }
 
-        //// 레이캐스트를 사용해 경사면 이동/슬라이딩 자연스럽게
-        //if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
-        //{
 
-        //    Vector3 slopeNormal = Hit.normal;
-        //    Vector3 slopeMovement = Vector3.ProjectOnPlane(moveDirection, slopeNormal).normalized;
 
-        //    transform.position += slopeMovement;  // 경사면움직임으로
 
-        //    //Quaternion slopeRotation = Quarternion.FromtoRotation(Vector3.up )
-        //}
-        //else
-        //{
-        //    transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 움직임으로
-        //}
+
+        // 레이캐스트를 사용해 Slide태그 경사면 이동/슬라이딩 자연스럽게
+
+
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
+        {
+
+            Vector3 slopeNormal = Hit.normal;
+
+            if (Hit.collider.CompareTag("Slide"))
+            {
+                Vector3 slopeDirection = Vector3.ProjectOnPlane(moveDirection, slopeNormal).normalized;
+
+                transform.position += slopeDirection * slideSpeed * Time.deltaTime;  // 경사면 속도로
+
+                //Quaternion slopeRotation = Quarternion.FromtoRotation(Vector3.up )
+
+            }
+            else
+            {
+                transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 속도로
+            }
+        }
 
 
 
@@ -136,7 +159,7 @@ public class Final : MonoBehaviour
 
 
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))  // 점프
         {
             if (jumpCount == 2)
             {
@@ -160,9 +183,36 @@ public class Final : MonoBehaviour
                 audioSource.Play();
                 jumpCount--;
 
+            }
 
+            //if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))    // 대시누르는 상태로 + 점프 할때도 소리 출력해야 하는데 
+            //{
+            //    if (jumpCount == 2)
+            //    {
+            //        // 첫 번째 점프
+            //        rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
 
+            //        animator.SetTrigger("Jump");
+            //        animator.SetBool("Slide", false);
+            //        audioSource.clip = soundJump;
+            //        audioSource.Play();
+            //        jumpCount--;
+            //    }
+            //    else if (jumpCount == 1)
+            //    {
+            //        // 두 번째 점프 (이중 점프)
+            //        rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
 
+            //        animator.SetTrigger("DoubleJump");
+            //        animator.SetBool("Slide", false);
+            //        audioSource.clip = soundDoubleJump;
+            //        audioSource.Play();
+            //        jumpCount--;
+
+            //    }
+        }
+    }
+        
 
 
 
@@ -195,11 +245,8 @@ public class Final : MonoBehaviour
                 //}
                 //jumpCount++;
                 #endregion
-            }
 
-        }
 
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -219,21 +266,43 @@ public class Final : MonoBehaviour
         }
 
 
+    }
 
-        if (collision.gameObject.CompareTag("Trap"))    // trap에 부딪히면
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Trap"))  // trap 태그의 오브젝트에 닿고
         {
+            if(rb != null)   // 리지드 바디가 null값이 아니라면
+            {
+                pushDirection = new Vector3(0f, 5f, -5f); // 밀쳐낼 방향 설정
 
-            animator.SetBool("TrapFall", true); //  애니메이션을 재생하고
+                //animator.SetTrigger
 
-            animator.SetBool("TrapGetup", true); //  애니메이션을 재생하고
-
-            //rb.isKinematic = true;   // rigidbody의 iskinetic을 활성화하고  
-
-            Vector3 KnockBack = (transform.position - collision.transform.position).normalized;   //  넉백시킬 방향을 선언하고
-
-            rb.AddForce(KnockBack * KnockBackPower, ForceMode.Impulse);   //  넉백시킬 힘을 추가한다.
-
+                rb.AddForce(pushDirection.normalized * pushForce, ForceMode.Impulse);  // 밀쳐내라
+                
+            }
         }
+    }
+
+
+
+
+
+    public IEnumerator BoostSpeed(float boost, float boostTime)
+    {
+        float originalSpeed = moveSpeed; // 오리지날 스피드에 원래 이동속도를 넣는다
+
+        moveSpeed += boost; // 이동 속도에 발판 부스트 속도를 더한다.
+        Debug.Log($"Speed increased to {moveSpeed}.");
+
+        
+        
+        yield return new WaitForSeconds(boostTime);  // 부스트 시간이 지난후 리턴하고 기다린다.
+
+        Debug.Log("원래속도로 돌아갑니다 속도 부스트 끝.");
+        moveSpeed = originalSpeed;  // 원래속도로 다시 돌려놓는다
+
     }
 
 

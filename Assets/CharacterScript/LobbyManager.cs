@@ -23,10 +23,6 @@ public class LobbyManager : MonoBehaviour
         LobbyBGM();  // 시작하면 로비 bgm 시작
 
         
-        Gamestart();
-
-        Gamequit();
-
 
 
     }
