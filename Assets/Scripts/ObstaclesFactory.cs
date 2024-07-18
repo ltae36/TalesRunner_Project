@@ -5,15 +5,13 @@ using UnityEngine;
 
 public class ObstaclesFactory : MonoBehaviour
 {
-    public GameObject oakBarrel;
+    public GameObject barrelPrefab;
     public GameObject factory;
     public bool playerAccess = false;
-    
-    
-    float deathTime = 0;
+        
+    public float deathTime = 0;
     float delayTime = 1.85f;
     float currentTime = 1.85f;
-    
 
     void Start()
     {
@@ -24,19 +22,17 @@ public class ObstaclesFactory : MonoBehaviour
     {        
         if (playerAccess)
         {
-            print(currentTime);
             currentTime += Time.deltaTime;
             deathTime += Time.deltaTime;
             if (currentTime > delayTime)
             {
-                Instantiate(oakBarrel);
+                Instantiate(barrelPrefab);
                 currentTime = 0;
-                oakBarrel.transform.position = factory.transform.position;              
+                barrelPrefab.transform.position = factory.transform.position;              
             }
-            if (deathTime >= 4) 
+            if (deathTime > 4) 
             {
-                Destroy(oakBarrel);
-                factory.SetActive(false);
+                playerAccess = false;
             }
         }
     }
