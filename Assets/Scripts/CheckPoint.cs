@@ -1,0 +1,18 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class CheckPoint : MonoBehaviour
+{
+    public Transform[] checkPoints;
+
+    void Start()
+    {
+        
+    }
+
+    void Update()
+    {
+        
+    }
+}
