@@ -7,8 +7,6 @@ public class E_Child : MonoBehaviour
     public float moveSpeed = 10;
     public GameObject player;
 
-    //public Transform[] goals;
-
     bool isStop = true;
     bool triggerCheck = false;
 
@@ -45,35 +43,7 @@ public class E_Child : MonoBehaviour
             {
                 isStop = true;
             }
-        }
-        //int i = 0;
-        //while (i < goals.Length)
-        //{
-        //    dir = goals[i].transform.position - transform.position;
-        //    if (isStop == true)
-        //    {
-        //        // 이동 공식 : p = p0 +vt
-
-        //        transform.position += dir * moveSpeed * Time.deltaTime;
-        //        dir.Normalize();
-
-        //        // 무작위 방향으로 곡선을 그리며 뛰어다닌다.
-
-        //        // 길을 벗어나거나 나무박스에 부딪힐 것 같다면, 방향을 변경한다.
-        //    }
-        //    else
-        //    {
-        //        currentTime += Time.deltaTime;
-        //        if (currentTime > downTime)
-        //        {
-        //            isStop = true;
-        //        }
-        //    }
-        //    if(transform.position == goals[i].transform.position) 
-        //    {
-        //        i++;
-        //    }
-        //}
+        }      
 
 
     }
