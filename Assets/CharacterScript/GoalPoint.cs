@@ -19,7 +19,7 @@ public class GoalPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.name.Contains("Player"))        // 
         {
             if (gm != null)
             {
