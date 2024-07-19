@@ -78,20 +78,26 @@ public class Final : MonoBehaviour
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-
         Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput);
 
-        transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
+        //Vector3 moveDirection = transform.right * horizontalInput + transform.forward* verticalInput;
+        //moveDirection.Normalize();
+        ////moveDirection = transform.TransformDirection(moveDirection);
+
+        //transform.position += moveDirection * moveSpeed * Time.deltaTime;
+
+        transform.position += moveDirection * moveSpeed * Time.deltaTime;
+        
         // 캐릭터 회전
 
-        Vector3 lookDirection = new Vector3(horizontalInput, 0f, verticalInput);    // 캐릭터가 보는방향 = 회전방향 
-
-        if (lookDirection != Vector3.zero) // 만약 보는 뱡향이 0값이 아니라면
+        //Vector3 lookDirection = new Vector3(horizontalInput, 0f, verticalInput);    // 캐릭터가 보는방향 = 회전방향 
+        
+        if (moveDirection.magnitude > 0.1f) // 만약 보는 뱡향이 0값이 아니라면
         {
-            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);    //  보는 방향으로 회전 
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);   //. 보는 방향으로 회전 속도
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);    //  보는 방향으로 회전 
+            transform.rotation = targetRotation;
+            //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);   //. 보는 방향으로 회전 속도
         }
 
 

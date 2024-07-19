@@ -15,13 +15,13 @@ public class Back_Camera : MonoBehaviour
     {
         if (target == null) return; // 대상이 없으면 함수 종료
 
-        // 타겟 위치에 offset을 더하여 카메라의 위치 설정
-        transform.position = target.position + offset;
-
-        // 타겟을 바라보도록 카메라 회전
-        transform.LookAt(target.position);
-
+        
+        transform.position = target.position + offset; // 타겟 위치에 offset을 더하여 카메라의 위치 설정
 
         
+        transform.LookAt(target.position); // 타겟을 바라보도록 카메라 회전
+
+
+
     }
 }
