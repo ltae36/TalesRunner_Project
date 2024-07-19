@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class PlayerCrashed : MonoBehaviour
 {
-    public bool canMove;
-    //PlayerMove move;
+    public bool canMove;    
 
     void Start()
     {

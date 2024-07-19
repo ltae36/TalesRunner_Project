@@ -28,7 +28,7 @@ public class CurtainOpen : MonoBehaviour
             curtainR.transform.localScale = Vector3.Lerp(curtainR.transform.localScale, openR.localScale, Time.deltaTime * moveSpeed);
             curtainL.transform.localScale = Vector3.Lerp(curtainL.transform.localScale, openL.localScale, Time.deltaTime * moveSpeed);
             //스포트라이트가 활성화된다
-            flash.SetActive(true);
+            //flash.SetActive(true);
         }
     }
 }
