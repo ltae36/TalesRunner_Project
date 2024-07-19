@@ -19,11 +19,12 @@ public class GoalPoint : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.name.Contains("Player"))        // 
+        if(other.gameObject.name.Contains("Player"))         
         {
             if (gm != null)
             {
-              // golepoint ¿¡ ´êÀ¸¸é gole in UI¸¦ ¶ç¿î´Ù
+                Debug.Log("´êÀ½");
+               // GameManager.gm.Goalin().SetActive(true);
             }
 
         }

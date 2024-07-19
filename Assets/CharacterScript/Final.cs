@@ -51,7 +51,7 @@ public class Final : MonoBehaviour
 
 
     bool isGrounded = true;
-    bool isSlide;
+    bool isSlide = false;
 
     Rigidbody rb;
     Animator animator;
@@ -83,6 +83,18 @@ public class Final : MonoBehaviour
 
         transform.position += moveDirection * moveSpeed * Time.deltaTime;
 
+        // 캐릭터 회전
+
+        Vector3 lookDirection = new Vector3(horizontalInput, 0f, verticalInput);    // 캐릭터가 보는방향 = 회전방향 
+
+        if (lookDirection != Vector3.zero) // 만약 보는 뱡향이 0값이 아니라면
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);    //  보는 방향으로 회전 
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);   //. 보는 방향으로 회전 속도
+        }
+
+
 
 
 
@@ -113,9 +125,7 @@ public class Final : MonoBehaviour
             // 플레이어가 멈춰 있을 때
             animator.SetFloat("Speed", 0f); // "Speed" 파라미터를 0으로 설정하여 Idle 상태로 전환  
         }
-
-
-
+               
 
 
         // 레이캐스트를 사용해 Slide태그 경사면 이동/슬라이딩 자연스럽게
@@ -143,19 +153,11 @@ public class Final : MonoBehaviour
 
 
 
+     
 
 
 
-        // 캐릭터 회전
 
-        Vector3 lookDirection = new Vector3(horizontalInput, 0f, verticalInput);    // 캐릭터가 보는방향 = 회전방향 
-
-        if (lookDirection != Vector3.zero) // 만약 보는 뱡향이 0값이 아니라면
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(lookDirection);    // 목표 방향으로 회전 , 회전각도 함수
-
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);   // 부드럽게 회전할때 Slerp 사용
-        }
 
 
 
@@ -185,7 +187,7 @@ public class Final : MonoBehaviour
 
             }
 
-            //if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))    // 대시누르는 상태로 + 점프 할때도 소리 출력해야 하는데 
+            //if (Input.GetKeyDown(KeyCode.Space) && Input.GetKey(KeyCode.LeftShift))    // 대시누르는 상태로 + 점프 할때도 소리 출력해야 함 
             //{
             //    if (jumpCount == 2)
             //    {

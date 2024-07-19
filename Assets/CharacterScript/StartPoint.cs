@@ -5,7 +5,7 @@ using UnityEngine;
 public class StartPoint : MonoBehaviour
 {
 
-    public GameManager gameManager;
+    public GameManager gm;
 
 
     void Start()
@@ -24,7 +24,7 @@ public class StartPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if (gameManager != null)
+            if (gm != null)
             {
                 Debug.Log("¥Í¿Ω");
                 StartCoroutine(GameManager.gm.CountDown());

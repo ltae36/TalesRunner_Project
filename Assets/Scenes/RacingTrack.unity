@@ -598,7 +598,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 341094310172409009, guid: 21ea99a9f633538438645e65434d3045, type: 3}
       propertyPath: m_Interpolate
-      value: 0
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 341094310172409009, guid: 21ea99a9f633538438645e65434d3045, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5917384116535239099, guid: 21ea99a9f633538438645e65434d3045, type: 3}
       propertyPath: m_Enabled
@@ -959,6 +963,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
       propertyPath: m_Name
       value: Wagon 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2990,7 +2998,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 414a9b7fcc5a5934b98caca58c3b65ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 987064282}
+  gm: {fileID: 0}
 --- !u!4 &275505880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: b0bc2ad000474944893d40612a1f41c6, type: 3}
@@ -9654,6 +9662,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wagon 1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9686,7 +9698,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
 --- !u!4 &952085695 stripped
@@ -10080,7 +10092,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5c514098499b73b428c99363d9fcb27a, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.335
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -15139,6 +15151,113 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: e9490403698431d43b792b0d642b18bc, type: 3}
+--- !u!1 &1416125621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1416125625}
+  - component: {fileID: 1416125624}
+  - component: {fileID: 1416125623}
+  - component: {fileID: 1416125622}
+  m_Layer: 0
+  m_Name: Back_Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1416125622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416125621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f3781f1352b4546853e5348130f748, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1077888674}
+  offset: {x: 0, y: 3, z: -10}
+--- !u!81 &1416125623
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416125621}
+  m_Enabled: 1
+--- !u!20 &1416125624
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416125621}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &1416125625
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1416125621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -28.599495, y: 95.634834, z: 368.11166}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1421091847
 GameObject:
   m_ObjectHideFlags: 0
@@ -16254,8 +16373,8 @@ Transform:
   m_GameObject: {fileID: 1514252640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.17, y: 108.32, z: -312.9}
-  m_LocalScale: {x: 25.063074, y: 0.10819803, z: 38.582085}
+  m_LocalPosition: {x: -1902.2, y: -21, z: 518.5}
+  m_LocalScale: {x: 25.063074, y: 2.9832556, z: 38.582085}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -16427,6 +16546,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wagon 1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16459,7 +16582,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
 --- !u!4 &1546496983 stripped
@@ -23030,6 +23153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wagon 1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -23062,7 +23189,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 0
+  m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: ae936c1d7d361a641b21ee04e224fdb2, type: 3}
 --- !u!4 &2097301500 stripped
@@ -23267,3 +23394,4 @@ SceneRoots:
   - {fileID: 1514252643}
   - {fileID: 1578484236}
   - {fileID: 1321318381}
+  - {fileID: 1416125625}

@@ -10,10 +10,10 @@ public class GameManager : MonoBehaviour
 
 
 
-    static public GameManager gm;
+    public static GameManager gm;
 
     public GameObject trackUI;   // track ui
-    public GameObject goleinUI;  // golein 시 나오는 ui
+    public GameObject goleinUI;  // golein 시 나오는 ui를 넣을칸
                                  // 
     public Text timer;  // 실시간 타이머 text를 넣을칸
     float timeLapes = 0f; // 경과시간
@@ -137,8 +137,10 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void GoalIn() // goleinUI에 넣음
+    public void Goalin() // goleinUI에 넣음
     {
+
+
 
     }
     
