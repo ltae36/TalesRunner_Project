@@ -9,8 +9,7 @@ public class EnemyPatrolMove : MonoBehaviour
     public float moveSpeed = 10;
     public static EnemyPatrolMove enemyPatrol;
     
-    int current;
-    
+    int current;    
 
     Vector3 dir;
 

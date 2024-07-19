@@ -31,7 +31,7 @@ public class E_SpotTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (flash.activeInHierarchy)
+        if (other.gameObject.tag == "Player")
         {
             print("스포트라이트에 닿았다!");
             //playerMove = player.GetComponent<Final>();

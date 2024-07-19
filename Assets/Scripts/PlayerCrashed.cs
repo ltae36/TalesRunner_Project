@@ -13,15 +13,6 @@ public class PlayerCrashed : MonoBehaviour
     }
 
     void Update()
-    {
-
-        //if (canMove == false)
-        //{
-        //    move.moveSpeed = 0;
-        //}
-        //else
-        //{
-        //    move.moveSpeed = 20f;
-        //}
+    {        
     }
 }
