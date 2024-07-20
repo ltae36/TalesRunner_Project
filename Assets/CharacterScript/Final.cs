@@ -1,9 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+//using System.Numerics;
 using Unity.VisualScripting;
-using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine;
 
 
 public class Final : MonoBehaviour
@@ -22,7 +23,7 @@ public class Final : MonoBehaviour
 
     //public int maxJumpCount = 2;  // 최대 점프 횟수
     private int jumpCount = 2;
-    public float KnockBackPower = 2f;  // 트랩에 부딪히면 밀쳐질 거리/힘
+    public float pushForce = 10f;  // 트랩에 부딪히면 밀쳐질 거리/힘
 
 
     //public float groundCheckDistance = 0.1f;  // 땅 감지 거리
@@ -77,7 +78,6 @@ public class Final : MonoBehaviour
 
 
 
-
         if (moveDirection != Vector3.zero)
         {
             if (Input.GetKey(KeyCode.LeftShift))
@@ -102,25 +102,6 @@ public class Final : MonoBehaviour
             animator.SetFloat("Speed", 0f); // "Speed" 파라미터를 0으로 설정하여 Idle 상태로 전환  
         }
 
-        //// 레이캐스트를 사용해 경사면 이동/슬라이딩 자연스럽게
-        //if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit Hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
-        //{
-
-        //    Vector3 slopeNormal = Hit.normal;
-        //    Vector3 slopeMovement = Vector3.ProjectOnPlane(moveDirection, slopeNormal).normalized;
-
-        //    transform.position += slopeMovement;  // 경사면움직임으로
-
-        //    //Quaternion slopeRotation = Quarternion.FromtoRotation(Vector3.up )
-        //}
-        //else
-        //{
-        //    transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 움직임으로
-        //}
-
-
-
-
 
 
         // 캐릭터 회전
@@ -135,6 +116,17 @@ public class Final : MonoBehaviour
         }
 
 
+        Jump();
+
+
+        RacastSlope();
+
+    }
+
+
+
+    private void Jump()
+    {
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -159,13 +151,6 @@ public class Final : MonoBehaviour
                 audioSource.clip = soundDoubleJump;
                 audioSource.Play();
                 jumpCount--;
-
-
-
-
-
-
-
 
 
 
@@ -198,8 +183,31 @@ public class Final : MonoBehaviour
             }
 
         }
+    }
+
+    private void RacastSlope()
+    {
+
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
+        {
+
+            Vector3 slopenormal = hit.normal;
+            Vector3 slopemovement = Vector3.ProjectOnPlane(moveDirection, slopenormal).normalized;
+
+
+            transform.position += slopemovement;  // 경사면움직임으로
+
+            //quaternion sloperotation = quarternion.fromtorotation(vector3.up )
+        }
+        else
+        {
+            transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 움직임으로
+        }
 
     }
+
+
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -227,16 +235,25 @@ public class Final : MonoBehaviour
 
             animator.SetBool("TrapGetup", true); //  애니메이션을 재생하고
 
-            //rb.isKinematic = true;   // rigidbody의 iskinetic을 활성화하고  
+            rb.isKinematic = true;   // rigidbody의 iskinetic을 활성화하고  
 
-            Vector3 KnockBack = (transform.position - collision.transform.position).normalized;   //  넉백시킬 방향을 선언하고
 
-            rb.AddForce(KnockBack * KnockBackPower, ForceMode.Impulse);   //  넉백시킬 힘을 추가한다.
+
+            //Vector3 knockBack = (transform.position - collision.transform.position).normalized;   //  넉백시킬 방향을 선언하고
+            Vector3 knockBack = new Vector3(0, 1f, 1f).normalized;
+
+            Debug.Log("닿음");
+
+            rb.AddForce(knockBack * pushForce, ForceMode.Impulse);   //  넉백시킬 힘을 추가한다.
 
         }
     }
-
-
-
-
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Trap")) // 벽과 충돌할 경우
+    //    {
+    //        Vector3 knockBack = (transform.position - other.transform.position).normalized;
+    //        rb.AddForce(knockBack * pushForce, ForceMode.Impulse);
+    //    }
+    //}
 }
