@@ -10,12 +10,14 @@ public class Game_Manager : MonoBehaviour
     public static Game_Manager gm; // 다른 스크립트에서 game manager  에 접근가능
 
     private AudioSource audiosource;
-    
+
+    public Text countdownText;
+
 
 
     private void Awake() // 싱글톤 선언
     {
-        if(gm != null)
+        if (gm != null)
         {
             gm = this;
         }
@@ -31,7 +33,7 @@ public class Game_Manager : MonoBehaviour
 
         BGMstart();
 
-
+       
 
 
     }
@@ -41,7 +43,7 @@ public class Game_Manager : MonoBehaviour
 
     void Update()
     {
-        
+       
     }
 
     public void GameRestart()  // 다시하기 
@@ -64,5 +66,25 @@ public class Game_Manager : MonoBehaviour
         }
     }
 
-    
+  
+
+    public IEnumerator StartCount()
+    {
+        countdownText.text = "3";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "2";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "1";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "GO!";
+        yield return new WaitForSeconds(1f);
+
+        countdownText.text = "";
+    }
+
+
+
 }

@@ -116,17 +116,9 @@ public class Final : MonoBehaviour
         }
 
 
-        Jump();
-
-
-        RacastSlope();
-
-    }
 
 
 
-    private void Jump()
-    {
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -180,32 +172,29 @@ public class Final : MonoBehaviour
                 //}
                 //jumpCount++;
                 #endregion
+
+                if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
+                {
+
+                    Vector3 slopenormal = hit.normal;
+                    Vector3 slopemovement = Vector3.ProjectOnPlane(moveDirection, slopenormal).normalized;
+
+
+                    transform.position += slopemovement;  // 경사면움직임으로
+
+                    //quaternion sloperotation = quarternion.fromtorotation(vector3.up )
+                }
+                else
+                {
+                    transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 움직임으로
+                }
             }
-
         }
-    }
-
-    private void RacastSlope()
-    {
-
-        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayLength))      // 만약, 레이캐스트에서 경사면을 인식한다면
-        {
-
-            Vector3 slopenormal = hit.normal;
-            Vector3 slopemovement = Vector3.ProjectOnPlane(moveDirection, slopenormal).normalized;
 
 
-            transform.position += slopemovement;  // 경사면움직임으로
-
-            //quaternion sloperotation = quarternion.fromtorotation(vector3.up )
-        }
-        else
-        {
-            transform.position += moveDirection * moveSpeed * Time.deltaTime;  // 경사면이 아니라면 일반 움직임으로
-        }
 
     }
-
+      
 
 
 
@@ -231,23 +220,26 @@ public class Final : MonoBehaviour
         if (collision.gameObject.CompareTag("Trap"))    // trap에 부딪히면
         {
 
-            animator.SetBool("TrapFall", true); //  애니메이션을 재생하고
+            //animator.SetBool("TrapFall", true); //  애니메이션을 재생하고
 
-            animator.SetBool("TrapGetup", true); //  애니메이션을 재생하고
+            //animator.SetBool("TrapGetup", true); //  애니메이션을 재생하고
 
-            rb.isKinematic = true;   // rigidbody의 iskinetic을 활성화하고  
+            //rb.isKinematic = true;   // rigidbody의 iskinetic을 활성화하고  
 
 
 
-            //Vector3 knockBack = (transform.position - collision.transform.position).normalized;   //  넉백시킬 방향을 선언하고
-            Vector3 knockBack = new Vector3(0, 1f, 1f).normalized;
+            
 
             Debug.Log("닿음");
+            //Vector3 knockBack = new Vector3(0, 1f, 1f).normalized;
+            Vector3 knockBack = (transform.position - collision.transform.position).normalized;   //  넉백시킬 방향을 선언하고
+
 
             rb.AddForce(knockBack * pushForce, ForceMode.Impulse);   //  넉백시킬 힘을 추가한다.
 
         }
     }
+
     //void OnTriggerEnter(Collider other)
     //{
     //    if (other.CompareTag("Trap")) // 벽과 충돌할 경우
