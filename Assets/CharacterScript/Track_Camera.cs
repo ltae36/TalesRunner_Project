@@ -8,6 +8,7 @@ public class Track_Camera : MonoBehaviour
     public Transform target; // 카메라가 따라갈 대상 (캐릭터)
     public float distance = 10f; // 카메라와 캐릭터 사이의 거리
     public float height = 3f; // 카메라의 높이
+    
 
     void LateUpdate()
     {
