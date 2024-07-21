@@ -6,22 +6,22 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Back_Camera : MonoBehaviour
 {
-    public Transform target; // 카메라가 따라갈 대상 (캐릭터)
-
-    public Vector3 offset = new Vector3(0f, 3f, -10f); // 카메라와 캐릭터 사이의 거리 및 위치 조정
-
+    public Transform character; // 캐릭터의 Transform을 여기에 할당
+    public Vector3 offset = new Vector3(0f, 2f, -5f); // 카메라의 상대적 위치(offset) 설정
 
     void LateUpdate()
     {
-        if (target == null) return; // 대상이 없으면 함수 종료
+        if (character != null)
+        {
+            // 캐릭터의 위치에 offset을 더해 카메라의 원하는 위치로 이동시킵니다.
+            transform.position = character.position + offset;
 
-        // 타겟 위치에 offset을 더하여 카메라의 위치 설정
-        transform.position = target.position + offset;
+            // 캐릭터의 회전 값을 가져와서 그에 맞추어 카메라도 회전합니다.
+            transform.rotation = character.rotation;
 
-        // 타겟을 바라보도록 카메라 회전
-        transform.LookAt(target.position);
+            // 캐릭터를 바라보도록 카메라의 방향을 설정합니다.
+            transform.LookAt(character);
 
-
-        
+        }
     }
 }

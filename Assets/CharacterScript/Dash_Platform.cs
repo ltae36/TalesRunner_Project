@@ -7,6 +7,7 @@ public class Dash_Platform : MonoBehaviour  // 대시발판
 
     public float boostSpeed = 10f;
     public float boostTime = 3f;
+    public float effectTime = 3f;
 
     void Start()
     {
@@ -26,7 +27,10 @@ public class Dash_Platform : MonoBehaviour  // 대시발판
 
             if(playermove != null)
             {
-                playermove.StartCoroutine(playermove.DashBoost(boostSpeed, boostTime));
+                playermove.StartCoroutine(playermove.DashBoost(boostSpeed, boostTime, effectTime));
+
+               
+
             }
            
         }
