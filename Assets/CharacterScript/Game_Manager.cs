@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 
 public class Game_Manager : MonoBehaviour
@@ -12,12 +14,14 @@ public class Game_Manager : MonoBehaviour
     private AudioSource audiosource;
 
     public Text countdownText;
-
+    public float StartTime;
+    public Text timer_text;
+    bool isTime;
 
 
     private void Awake() // ½Ì±ÛÅæ ¼±¾ð
     {
-        if (gm != null)
+        if (gm == null)
         {
             gm = this;
         }
@@ -31,9 +35,10 @@ public class Game_Manager : MonoBehaviour
     {
         audiosource = GetComponent<AudioSource>();
 
-        BGMstart();
+        BackgroundMusicStart();
 
-       
+        
+        
 
 
     }
@@ -44,6 +49,7 @@ public class Game_Manager : MonoBehaviour
     void Update()
     {
        
+        UpdateTime();
     }
 
     public void GameRestart()  // ´Ù½ÃÇÏ±â 
@@ -56,7 +62,7 @@ public class Game_Manager : MonoBehaviour
         Application.Quit();
     }
 
-    public void BGMstart()
+    public void BackgroundMusicStart()
     {
         if (audiosource != null)
         {
@@ -66,7 +72,7 @@ public class Game_Manager : MonoBehaviour
         }
     }
 
-  
+
 
     public IEnumerator StartCount()
     {
@@ -82,9 +88,48 @@ public class Game_Manager : MonoBehaviour
         countdownText.text = "GO!";
         yield return new WaitForSeconds(1f);
 
+        StartTimer();
+
         countdownText.text = "";
+    }
+
+    public void StartTimer()
+    {
+        StartTime = Time.time;
+        isTime = true;
+       
+
+    }
+
+    public void StopTimer()
+    {
+        isTime = false;
     }
 
 
 
+    public void UpdateTime()
+    {
+        if (isTime)
+        {
+            float t = Time.time - StartTime;
+
+            int min = (int)(t / 60);
+            float sec = t % 60;
+            int millisec = (int)((t * 1000) % 1000);
+
+            timer_text.text = string.Format("{0:D2}:{1:D2}:{2:D3}", min, (int)sec, millisec);
+        }
+    }
+
+   
+    public void ResetTimer()
+    {
+        StartTime = Time.time;
+    }
+    
+
 }
+
+
+

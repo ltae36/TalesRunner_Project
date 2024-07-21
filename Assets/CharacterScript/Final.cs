@@ -227,6 +227,7 @@ public class Final : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))       // Ground 태그에 닿으면 
         {
             jumpCount = 2;  // 지면에 닿으면 점프 횟수 초기화
+            animator.SetBool("Slide", false);
         }
 
 
@@ -241,16 +242,11 @@ public class Final : MonoBehaviour
 
 
 
+
         if (collision.gameObject.CompareTag("Trap"))    // trap에 부딪히면
         {
-
-            //animator.SetBool("TrapFall", true); //  애니메이션을 재생하고
-
-            //animator.SetBool("TrapGetup", true); //  애니메이션을 재생하고
-
-            //rb.isKinematic = true;   // rigidbody의 iskinetic을 활성화하고  
-
-            Debug.Log("닿음");
+                      
+            //Debug.Log("닿음");
 
             // 넉백 방향 설정
             Vector3 knockBackDirection = transform.position - collision.transform.position;
@@ -262,4 +258,27 @@ public class Final : MonoBehaviour
         }
 
     }
+
+    public IEnumerator DashBoost(float speedBoast, float speedTime)   // 대시발판을 밟았을때 
+    {
+        Debug.Log("속도증가");
+        float originSpeed = runSpeed;
+
+        runSpeed += speedBoast;
+
+        //파티클 시스템 추가
+
+        //sound 추가
+
+        yield return new WaitForSeconds(3f);
+
+        Debug.Log("속도감소");
+        runSpeed = originSpeed;
+
+        //파티클 시스템 추가 종료
+
+        //sound 추가 종료
+
+    }
+
 }
