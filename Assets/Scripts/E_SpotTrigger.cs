@@ -8,8 +8,9 @@ public class E_SpotTrigger : MonoBehaviour
     // 플레이어는 이동불능 상태인 목각인형 디버프에 걸려 빙글빙글돌며 움직이지 못하게 된다.
     // 일정 시간이 흐르면 다시 움직일 수 있게 된다.
     public GameObject flash;
-    public GameObject player;
     public float stopDuration = 5.0f; // 플레이어가 멈추는 시간
+    public MonoBehaviour componentToDisable;
+    public string componentTypeName;
 
     float currentTime; // 플레이어가 목각인형이 되어있는 시간
     bool canMove;
@@ -31,11 +32,21 @@ public class E_SpotTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject.tag == "Player")
         {
+            if (componentToDisable != null)
+            {
+                // 해당 컴포넌트를 비활성화합니다.
+                componentToDisable.enabled = false;
+            }
+            else
+            {
+                Debug.LogWarning("Component of type " + componentTypeName + " not found on " + other.gameObject.name);
+            }
             print("스포트라이트에 닿았다!");
             //playerMove = player.GetComponent<Final>();
-            player.transform.position = transform.position;
+            other.transform.position = transform.position;
         }
     }
 }
