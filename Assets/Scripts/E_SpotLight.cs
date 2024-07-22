@@ -6,11 +6,10 @@ public class E_SpotLight : MonoBehaviour
 {
     public GameObject[] flash;
     public float lifeSpan = 4.0f;
-    public float startTime;
+    public float startTime = 0;
     public float endTime = 8.0f;
 
-    CurtainOpen open = new CurtainOpen();
-    
+   
     private void Update()
     {
         
@@ -33,7 +32,9 @@ public class E_SpotLight : MonoBehaviour
             if (startTime > endTime)
             {
                 flash[i].SetActive(false);
-            }
-        }        
+                startTime = 0;
+            }            
+        }
+        
     }      
 }
