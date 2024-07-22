@@ -73,7 +73,7 @@ public class Final : MonoBehaviour
 
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
-            
+
 
 
             if (Input.GetKey(KeyCode.LeftShift))
@@ -84,8 +84,8 @@ public class Final : MonoBehaviour
                 if (!isSlide && gameObject.CompareTag("Ground"))  // 슬라이드 상태가 아니고 땅위 일때만 
                 {
 
-                   
-                                        
+
+
 
                     GameObject runSmoke = Instantiate(runEffectPrefab, transform.position, Quaternion.identity);
 
@@ -102,13 +102,13 @@ public class Final : MonoBehaviour
                     if (particleSystem != null)
                     {
                         particleSystem.Play();
-                     }
+                    }
 
                     if (audioSource != null)
-                    { 
-                    PlayRunSound(); // 런사운드 출력
-                     }
-                    
+                    {
+                        PlayRunSound(); // 런사운드 출력
+                    }
+
 
                 }
             }
@@ -176,7 +176,7 @@ public class Final : MonoBehaviour
         //            StopRunSound(); // 점프 시 달리기 소리 중지
         //            audioSource.clip = jumpSound;
         //            audioSource.Play();
-                   
+
         //        }
         //        else if (jumpCount == 1)
         //        {
@@ -186,7 +186,7 @@ public class Final : MonoBehaviour
         //            StopRunSound(); // 이중 점프 시 달리기 소리 중지
         //            audioSource.clip = doubleJumpSound;
         //            audioSource.Play();
-                    
+
         //        }
         //        jumpCount--;
         //    }
@@ -230,12 +230,12 @@ public class Final : MonoBehaviour
         }
 
         if (collision.gameObject.CompareTag("Trap"))    //Trap에 닿았을때 작용
-        {           
+        {
 
             //Vector3 pushDir = transform.position - collision.transform.position;
             Vector3 pushDir = new Vector3(0f, 3f, -2f);
 
-           
+
             rb.AddForce(pushDir * pushForce, ForceMode.Impulse);
 
             PlayHitSound();    // hit 사운드 출력
@@ -316,9 +316,12 @@ public class Final : MonoBehaviour
 
         runSpeed += speedBoost;
 
+
+
         GameObject boostEffect = Instantiate(boostEffectPrefab, transform.position, Quaternion.identity);
 
         boostEffect.transform.SetParent(transform);
+        boostEffect.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
 
         ParticleSystem particleSystem = boostEffect.GetComponent<ParticleSystem>();
 
@@ -336,4 +339,22 @@ public class Final : MonoBehaviour
 
         Destroy(boostEffect, effectDuration);
     }
+
+
+
+    //    public IEnumerator Reduce(float speedBoost, float speedDuration)
+    //    {
+    //        Debug.Log("리듀스 시작");
+
+    //        float originSpeed = runSpeed;
+
+    //        runSpeed -= speedBoost;
+
+    //        yield return new WaitForSeconds(speedDuration);
+
+    //        runSpeed = originSpeed;
+
+
+    //    }
+    //}
 }

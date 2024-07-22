@@ -6,8 +6,8 @@ public class Dash_Platform : MonoBehaviour  // 대시발판
 {
 
     public float boostSpeed = 10f;
-    public float boostTime = 3f;
-    public float effectTime = 3f;
+    public float boostTime = 1.5f;
+    public float effectTime = 1.5f;
 
     void Start()
     {
