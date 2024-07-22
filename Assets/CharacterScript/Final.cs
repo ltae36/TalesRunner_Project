@@ -74,6 +74,8 @@ public class Final : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
             
+
+
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 transform.position += localMoveDirection * runSpeed * Time.deltaTime;
@@ -81,9 +83,21 @@ public class Final : MonoBehaviour
 
                 if (!isSlide && gameObject.CompareTag("Ground"))  // 슬라이드 상태가 아니고 땅위 일때만 
                 {
+
+                   
+                                        
+
                     GameObject runSmoke = Instantiate(runEffectPrefab, transform.position, Quaternion.identity);
 
-                    ParticleSystem particleSystem = runSmoke.GetComponent<ParticleSystem>(); // 플레이어에 particle system component를 부착하기 싫다면 이렇게 선언
+                    ParticleSystem particleSystem = runSmoke.GetComponent<ParticleSystem>();
+
+                    runSmoke.transform.SetParent(transform);
+
+                    //GameObject runSmoke = Instantiate(runEffectPrefab, transform.position, Quaternion.identity);
+
+                    // ParticleSystem particleSystem = runSmoke.GetComponent<ParticleSystem>(); // 플레이어에 particle system component를 부착하기 싫다면 이렇게 선언
+
+
 
                     if (particleSystem != null)
                     {
