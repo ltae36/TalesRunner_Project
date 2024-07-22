@@ -312,30 +312,26 @@ public class Final : MonoBehaviour
     {
         Debug.Log("부스터 시작");
 
+
+
         float originSpeed = runSpeed;
 
         runSpeed += speedBoost;
 
 
-
         GameObject boostEffect = Instantiate(boostEffectPrefab, transform.position, Quaternion.identity);
-
         boostEffect.transform.SetParent(transform);
         boostEffect.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
-
         ParticleSystem particleSystem = boostEffect.GetComponent<ParticleSystem>();
 
-
         particleSystem.Play();
-
 
 
         PlayBoostSound();
 
         yield return new WaitForSeconds(speedDuration);
 
-        runSpeed = originSpeed;
-        audioSource.Stop();
+        runSpeed = originSpeed;        
 
         Destroy(boostEffect, effectDuration);
     }

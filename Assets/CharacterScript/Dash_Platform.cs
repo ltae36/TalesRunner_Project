@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dash_Platform : MonoBehaviour  // 대시발판
 {
 
-    public float boostSpeed = 10f;
+    public float boostSpeed = 2f;
     public float boostTime = 1.5f;
     public float effectTime = 1.5f;
 
@@ -29,7 +29,7 @@ public class Dash_Platform : MonoBehaviour  // 대시발판
             {
                 playermove.StartCoroutine(playermove.DashBoost(boostSpeed, boostTime, effectTime));
 
-               
+                playermove.StopCoroutine(playermove.DashBoost(boostSpeed, boostTime, effectTime));
 
             }
            
