@@ -21,7 +21,7 @@ public class Final : MonoBehaviour
     public float doubleJumpHeight = 20f;  // 이단 점프 힘
 
     private int jumpCount = 2;
-    public float pushForce = 20f;  // 트랩에 부딪히면 밀쳐질 거리/힘
+    public float pushForce = 12f;  // 트랩에 부딪히면 밀쳐질 거리/힘
 
     public float rayLength = 10f;
 
@@ -33,20 +33,31 @@ public class Final : MonoBehaviour
     public AudioClip boostSound;
     public AudioClip hitSound;
 
+    public ParticleSystem particleSystem;
+
     public GameObject boostEffectPrefab;
+    public GameObject runEffectPrefab;
 
     bool isSlide;
+    bool isGround; // 땅위인지 아닌지 체크
+
+    private bool isFreeze = false;
 
     Rigidbody rb;
     Animator animator;
+
+    //Vector3 lastPosition;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
+        particleSystem = GetComponent<ParticleSystem>();
         jumpCount = 2;
         isSlide = false;
+
+        //lastPosition = transform.position;  // 캐릭터의 마지막 위치 저장
     }
 
     void Update()
@@ -59,23 +70,47 @@ public class Final : MonoBehaviour
         {
             Vector3 localMoveDirection = transform.TransformDirection(movement);
             Quaternion targetRotation = Quaternion.LookRotation(localMoveDirection);
+
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
 
+            
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 transform.position += localMoveDirection * runSpeed * Time.deltaTime;
                 animator.SetFloat("Speed", runSpeed);
-                if (!isSlide) // 슬라이드 상태가 아닐 때만 달리기 소리 재생
+
+                if (!isSlide && gameObject.CompareTag("Ground"))  // 슬라이드 상태가 아니고 땅위 일때만 
                 {
-                    PlayRunSound();
+                    GameObject runSmoke = Instantiate(runEffectPrefab, transform.position, Quaternion.identity);
+
+                    ParticleSystem particleSystem = runSmoke.GetComponent<ParticleSystem>(); // 플레이어에 particle system component를 부착하기 싫다면 이렇게 선언
+
+                    if (particleSystem != null)
+                    {
+                        particleSystem.Play();
+                     }
+
+                    if (audioSource != null)
+                    { 
+                    PlayRunSound(); // 런사운드 출력
+                     }
+                    
+
                 }
             }
             else
             {
                 transform.position += localMoveDirection * walkSpeed * Time.deltaTime;
                 animator.SetFloat("Speed", walkSpeed);
-                if (!isSlide) // 슬라이드 상태가 아닐 때만 달리기 소리 재생
+
+                if (!isSlide && gameObject.CompareTag("Ground")) // 슬라이드 상태가 아닐 때만 달리기 소리 재생
                 {
+                    GameObject runSmoke = Instantiate(runEffectPrefab, transform.position, Quaternion.identity);
+
+                    ParticleSystem particleSystem = runSmoke.GetComponent<ParticleSystem>();
+
+                    particleSystem.Play();
+
                     PlayRunSound();
                 }
             }
@@ -84,6 +119,10 @@ public class Final : MonoBehaviour
         {
             animator.SetFloat("Speed", 0f);
         }
+
+
+
+
 
         if (Input.GetButtonDown("Jump"))
         {
@@ -111,6 +150,40 @@ public class Final : MonoBehaviour
             }
         }
 
+        //if (Input.GetButtonDown("Jump") && Input.GetKey(KeyCode.LeftShift) && IsCharacterMoving()) // 캐릭터가 jump를 누르고 shift를 누르고 움직이는 중이라면
+        //{
+        //    if (jumpCount > 0)
+        //    {
+        //        if (jumpCount == 2)
+        //        {
+        //            rb.AddForce(Vector3.up * jumpHeight, ForceMode.Impulse);
+        //            animator.SetTrigger("Jump");
+
+        //            StopRunSound(); // 점프 시 달리기 소리 중지
+        //            audioSource.clip = jumpSound;
+        //            audioSource.Play();
+                   
+        //        }
+        //        else if (jumpCount == 1)
+        //        {
+        //            rb.AddForce(Vector3.up * doubleJumpHeight, ForceMode.Impulse);
+        //            animator.SetTrigger("DoubleJump");
+
+        //            StopRunSound(); // 이중 점프 시 달리기 소리 중지
+        //            audioSource.clip = doubleJumpSound;
+        //            audioSource.Play();
+                    
+        //        }
+        //        jumpCount--;
+        //    }
+        //}
+
+
+
+
+
+
+
         if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, rayLength))
         {
             Vector3 slopeNormal = hit.normal;
@@ -136,19 +209,39 @@ public class Final : MonoBehaviour
         {
             jumpCount = 2;
             animator.SetBool("Slide", true);
+
             isSlide = true;
             PlaySlideSound();
-            StopRunSound(); // 슬라이드 시 달리기 소리 중지
+            //StopRunSound(); // 슬라이드 시 달리기 소리 중지
         }
 
-        if (collision.gameObject.CompareTag("Trap"))
-        {
-            Vector3 knockBackDirection = transform.position - collision.transform.position;
-            knockBackDirection.y = 0f;
-            rb.AddForce(knockBackDirection.normalized * pushForce, ForceMode.Impulse);
-            PlayHitSound();
+        if (collision.gameObject.CompareTag("Trap"))    //Trap에 닿았을때 작용
+        {           
+
+            //Vector3 pushDir = transform.position - collision.transform.position;
+            Vector3 pushDir = new Vector3(0f, 3f, -2f);
+
+           
+            rb.AddForce(pushDir * pushForce, ForceMode.Impulse);
+
+            PlayHitSound();    // hit 사운드 출력
+
+            animator.SetTrigger("Hit");   // hit 모션 출력
+
+            StartCoroutine(FreezePlayer()); // 캐릭터를 못 움직이게하는 코루틴 시작
         }
     }
+
+    IEnumerator FreezePlayer()
+    {
+        isFreeze = true;
+
+        yield return new WaitForSeconds(3f);
+
+        isFreeze = false;
+    }
+
+
 
     void PlayRunSound()
     {
@@ -158,6 +251,11 @@ public class Final : MonoBehaviour
             audioSource.Play();
         }
     }
+
+    //bool IsCharacterMoving() // 캐릭터가 움직이는 아닌지 체크
+    //{
+    //    return transform.position != lastPosition;
+    //}
 
     void StopRunSound()
     {
@@ -173,6 +271,7 @@ public class Final : MonoBehaviour
         {
             audioSource.clip = slideSound;
             audioSource.Play();
+            StopRunSound();
         }
     }
 
@@ -204,10 +303,15 @@ public class Final : MonoBehaviour
         runSpeed += speedBoost;
 
         GameObject boostEffect = Instantiate(boostEffectPrefab, transform.position, Quaternion.identity);
+
         boostEffect.transform.SetParent(transform);
 
         ParticleSystem particleSystem = boostEffect.GetComponent<ParticleSystem>();
+
+
         particleSystem.Play();
+
+
 
         PlayBoostSound();
 
