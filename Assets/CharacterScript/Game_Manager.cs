@@ -141,6 +141,8 @@ public class Game_Manager : MonoBehaviour
         }
     }
 
+
+
     public void DisplayGoleinTime() // 골인 타임 표시
     {
         float t = Time.time - StartTime;  // Time.time은 초단위로 시간을 잰다.

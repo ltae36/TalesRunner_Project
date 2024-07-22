@@ -47,9 +47,9 @@ public class LobbyManager : MonoBehaviour
 
     }
 
-    public void GamestartButton()  // 게임 시작버튼  누를시 1번에 있는 씬으로 전환(trackScene)  ---- 게임 시작 버튼에 드래그&드롭
+    public void GamestartButton()  // 게임 시작버튼  누를시 1번에 있는 씬으로 전환(MapSelectScene)  ---- 게임 시작 버튼에 드래그&드롭
     {
-        SceneManager.LoadScene("RacingTrack");
+        SceneManager.LoadScene("MapSelectScene");
     }
 
 
