@@ -10,8 +10,8 @@ public class ObstaclesFactory : MonoBehaviour
     public bool playerAccess = false;
         
     public float deathTime = 0;
-    float delayTime = 1.85f;
-    float currentTime = 1.85f;
+    float delayTime = 1.75f;
+    float currentTime = 1.75f;
 
     void Start()
     {
@@ -27,10 +27,10 @@ public class ObstaclesFactory : MonoBehaviour
             if (currentTime > delayTime)
             {
                 Instantiate(barrelPrefab);
+                barrelPrefab.transform.position = factory.transform.position;     
                 currentTime = 0;
-                barrelPrefab.transform.position = factory.transform.position;              
             }
-            if (deathTime > 4) 
+            if (deathTime > 8) 
             {
                 playerAccess = false;
             }
