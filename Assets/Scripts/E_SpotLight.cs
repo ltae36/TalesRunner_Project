@@ -34,6 +34,7 @@ public class E_SpotLight : MonoBehaviour
             {
                 flash[i].SetActive(false);
             }
+            startTime = 0;
         }        
     }      
 }
